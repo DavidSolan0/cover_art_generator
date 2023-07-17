@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Art Cover Generator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <style>
+    .gray-text {
+    color: gray;
+    }
+    div#loading {
+            width: 35px;
+            height: 35px;
+            display: none;
+            background: url(/static/loadingimage.gif) no-repeat;
+            cursor: wait;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Art Cover Generator</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1>Welcome to Art Cover Generator Website (UPC)</h1>
+        <p>Art Cover Generator</p>
+        <!--<form method="POST" action="/cover_album" enctype="multipart/form-data">
+            <button type="submit" class="btn btn-primary">Get Supah Album Cover</button>
+        </form>-->
+        {% if (value == 'prompt') %}
+            <form method="POST" action="/cover_album" enctype="multipart/form-data">
+                <button type="submit" id="generate-btn" class="btn btn-primary" disabled>Generate Album Cover</button>
+            </form>
+        {% else %}
+            <form method="POST" action="/cover_album" enctype="multipart/form-data">
+                <div class="mb-3">
+                        <label for="prompt" class="form-label">Prompt:</label>
+                        <input type="text" id="id_prompt" name="prompt" class="form-control gray-text" value="{{ value }}" readonly>
+                </div>
+                <button type="submit" id="generate-btn" class="btn btn-primary">Generate Album Cover</button>
+            </form>
+        {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="POST" action="/upload" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="artist" class="form-label">Artist:</label>
+                            <input type="text" id="artist" name="artist" class="form-control">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="style" class="form-label">Style:</label>
+                            <input type="text" id="style" name="style" class="form-control">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="year" class="form-label">Year:</label>
+                            <input type="text" id="year" name="year" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title:</label>
+                        <input type="text" id="title" name="title" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="song" class="form-label">Song:</label>
+                        <input type="file" id="song" name="song" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="loading();">Load</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        // wait to loading song
+        // Supongamos que hay una función llamada 'cargarCancion()' que carga la canción cargarCancion().then(function() {
+        // Habilita el campo de entrada de texto una vez que la canción se haya cargado
+            document.getElementById("text-input").disabled = false;
+        });
+    </script>
+
+    <div id="loading"></div>
+
+    <script>
+        function loading() {
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("content").style.display = "none";
+        }
+    </script>
+    <script>
+        const promptInput = document.getElementById('prompt');
+        const generateBtn = document.getElementById('generate-btn');
+
+        promptInput.addEventListener('input', () => {
+            if (promptInput.value.trim() !== '') {
+                generateBtn.removeAttribute('disabled');
+            } else {
+                generateBtn.setAttribute('disabled', 'disabled');
+            }
+        });
+    </script>
+</body>
+</html>
