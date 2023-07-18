@@ -1,4 +1,4 @@
-## models
+## Dreambooth Fine Tuning
 
 This folder contains the Jupyter notebook `prompt_conditioned_dcgan.ipynb`, which is used to train the baseline model—a DCGAN (Deep Convolutional Generative Adversarial Network) conditioned on text prompts.
 
