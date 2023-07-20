@@ -1,4 +1,4 @@
-# Generative AI for Album Cover Creation
+# [Generative AI for Album Cover Creation](document.pdf)
 
 This GitHub repository contains code and resources for generating album covers using generative AI techniques. The project aims to extract music tags from songs using MusicCNN, and then utilizes the album name, singer name, and release date to create a prompt for conditioning the generative model.
 
